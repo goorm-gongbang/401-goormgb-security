@@ -1,0 +1,38 @@
+# ===============================
+# CodeQL 워크플로우
+# Actions + Python + JS/TS 분석
+# ===============================
+
+name: "CodeQL Advanced"
+
+# 실행 조건 정의
+on:
+  # main 브랜치에 push 발생 시 실행
+  push:
+    branches: [ "main" ]
+
+  # main 대상으로 PR 생성/수정 시 실행
+  pull_request:
+    branches: [ "main" ]
+
+  # 주기적 자동 스캔 (매주 월요일 UTC 04:22)
+  schedule:
+    - cron: '22 4 * * 1'
+
+jobs:
+  analyze:
+    # matrix에 정의된 언어별로 각각 실행됨
+    name: Analyze (${{ matrix.language }})
+
+    # Swift만 macOS 필요, 나머지는 Ubuntu 사용
+    runs-on: ubuntu-latest
+
+    # 🔐 최소 권한 설정 (보안 권장)
+    permissions:
+      contents: read          # 저장소 코드 읽기
+      security-events: write  # CodeQL 결과 업로드
+      actions: read           # Actions 메타데이터 읽기
+      packages: read          # 내부 CodeQL pack 사용 대비
+
+    strategy:
+     
