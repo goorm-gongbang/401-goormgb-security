@@ -1,7 +1,7 @@
 # ---------------------------------------------------------
 # [00] 공통 가드레일: MFA 강제
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_00_common_mfa_enforcement" {
+data "aws_iam_policy_document" "label_00_mfa" {
   statement {
     sid       = "DenyWithoutMFA"
     effect    = "Deny"
@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "label_00_common_mfa_enforcement" {
 # ---------------------------------------------------------
 # [01] 인프라 생성 및 관리 (Cloud Architect 용)
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_01_infra_core_management" {
+data "aws_iam_policy_document" "label_01_infra" {
   statement {
     sid       = "AllowInfraProvisioning"
     effect    = "Allow"
@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "label_01_infra_core_management" {
 # ---------------------------------------------------------
 # [02] 보안 통제 및 IAM 관리 (Security 용)
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_02_sec_iam_waf_management" {
+data "aws_iam_policy_document" "label_02_sec_iam" {
   statement {
     sid       = "AllowSecurityManagement"
     effect    = "Allow"
@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "label_02_sec_iam_waf_management" {
 # ---------------------------------------------------------
 # [03] 배포 파이프라인 관리 (DevOps 용)
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_03_devops_pipeline_deployment" {
+data "aws_iam_policy_document" "label_03_pipeline" {
   statement {
     sid       = "AllowPipelineAndDeploy"
     effect    = "Allow"
@@ -81,7 +81,7 @@ data "aws_iam_policy_document" "label_03_devops_pipeline_deployment" {
 # ---------------------------------------------------------
 # [04] 개발 앱 베이스라인 (Developer 공통)
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_04_dev_app_baseline" {
+data "aws_iam_policy_document" "label_04_app_base" {
   statement {
     sid       = "AllowAppMonitoring"
     effect    = "Allow"
@@ -112,7 +112,7 @@ data "aws_iam_policy_document" "label_04_dev_app_baseline" {
 # ---------------------------------------------------------
 # [05] DB 인프라 관리 (DBA 용)
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_05_data_db_management" {
+data "aws_iam_policy_document" "label_05_db_admin" {
   statement {
     sid       = "AllowDBManagement"
     effect    = "Allow"
@@ -130,7 +130,7 @@ data "aws_iam_policy_document" "label_05_data_db_management" {
 # ---------------------------------------------------------
 # [06] DB 상태 조회 (App / AI 서비스 연동용)
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_06_data_db_readonly" {
+data "aws_iam_policy_document" "label_06_db_ro" {
   statement {
     sid       = "AllowDBStatusRead"
     effect    = "Allow"
@@ -154,7 +154,7 @@ data "aws_iam_policy_document" "label_06_data_db_readonly" {
 # ---------------------------------------------------------
 # [07] 시크릿 관리 (AppSec 전용)
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_07_sec_secret_management" {
+data "aws_iam_policy_document" "label_07_sec_admin" {
   statement {
     sid       = "AllowSecretMetaManagement"
     effect    = "Allow"
@@ -176,7 +176,7 @@ data "aws_iam_policy_document" "label_07_sec_secret_management" {
 # ---------------------------------------------------------
 # [08] 시크릿 참조 (AppSec 제외 전원 공통)
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_08_sec_secret_readonly" {
+data "aws_iam_policy_document" "label_08_sec_ro" {
   statement {
     sid       = "AllowSecretMetaRead"
     effect    = "Allow"
@@ -200,7 +200,7 @@ data "aws_iam_policy_document" "label_08_sec_secret_readonly" {
 # ---------------------------------------------------------
 # [09] AI 모델 학습 (ML Eng 용)
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_09_ai_model_training" {
+data "aws_iam_policy_document" "label_09_ai_train" {
   statement {
     sid       = "AllowAITrainingDataAndPush"
     effect    = "Allow"
@@ -224,7 +224,7 @@ data "aws_iam_policy_document" "label_09_ai_model_training" {
 # ---------------------------------------------------------
 # [10] AI 모델 서빙 (AI Platform Eng 용)
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_10_ai_model_serving" {
+data "aws_iam_policy_document" "label_10_ai_serve" {
   statement {
     sid       = "AllowAIServingInfra"
     effect    = "Allow"
@@ -245,7 +245,7 @@ data "aws_iam_policy_document" "label_10_ai_model_serving" {
 # ---------------------------------------------------------
 # [11] 시스템 모니터링 및 감사 (QA / Security Analyst 등)
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_11_audit_system_readonly" {
+data "aws_iam_policy_document" "label_11_audit_ro" {
   statement {
     sid       = "AllowGlobalReadOnlyAndAudit"
     effect    = "Allow"
@@ -269,7 +269,7 @@ data "aws_iam_policy_document" "label_11_audit_system_readonly" {
 # ---------------------------------------------------------
 # [12] 비즈니스 및 UX 지표 분석 (CPO / Designer 등)
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_12_biz_data_analytics" {
+data "aws_iam_policy_document" "label_12_biz_data" {
   statement {
     sid       = "AllowAnalyticsAndAssets"
     effect    = "Allow"
@@ -290,7 +290,7 @@ data "aws_iam_policy_document" "label_12_biz_data_analytics" {
 # ---------------------------------------------------------
 # [99] 긴급 복구 전용 (Break-Glass Admin)
 # ---------------------------------------------------------
-data "aws_iam_policy_document" "label_99_emergency_break_glass_admin" {
+data "aws_iam_policy_document" "label_99_break_glass" {
   statement {
     sid       = "AllowAllForRecovery"
     effect    = "Allow"
