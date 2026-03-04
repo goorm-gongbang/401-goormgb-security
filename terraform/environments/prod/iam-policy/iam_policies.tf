@@ -4,90 +4,105 @@
 
 data "aws_iam_policy_document" "cloud_architect_merged_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.label_00_common_mfa_enforcement.json,
-    data.aws_iam_policy_document.label_01_infra_core_management.json,
-    data.aws_iam_policy_document.label_08_sec_secret_readonly.json
+    data.aws_iam_policy_document.label_00_mfa.json,
+    data.aws_iam_policy_document.label_01_infra.json,
+    data.aws_iam_policy_document.label_08_sec_ro.json
   ]
 }
 
 data "aws_iam_policy_document" "infra_security_merged_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.label_00_common_mfa_enforcement.json,
-    data.aws_iam_policy_document.label_02_sec_iam_waf_management.json,
-    data.aws_iam_policy_document.label_08_sec_secret_readonly.json
+    data.aws_iam_policy_document.label_00_mfa.json,
+    data.aws_iam_policy_document.label_02_sec_iam.json,
+    data.aws_iam_policy_document.label_08_sec_ro.json
   ]
 }
 
 data "aws_iam_policy_document" "devops_merged_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.label_00_common_mfa_enforcement.json,
-    data.aws_iam_policy_document.label_03_devops_pipeline_deployment.json,
-    data.aws_iam_policy_document.label_08_sec_secret_readonly.json
+    data.aws_iam_policy_document.label_00_mfa.json,
+    data.aws_iam_policy_document.label_03_pipeline.json,
+    data.aws_iam_policy_document.label_08_sec_ro.json
   ]
 }
 
-data "aws_iam_policy_document" "developer_merged_policy" {
+# ---------------------------------------------------------
+# 4. Backend Engineer (황시연)
+# 애플리케이션 로그, DB 상태 확인 가능. 수동 서버 접근 및 DB 인프라 변경 불가
+# ---------------------------------------------------------
+data "aws_iam_policy_document" "backend_merged_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.label_00_common_mfa_enforcement.json,
-    data.aws_iam_policy_document.label_04_dev_app_baseline.json,
-    data.aws_iam_policy_document.label_06_data_db_readonly.json,
-    data.aws_iam_policy_document.label_08_sec_secret_readonly.json
+    data.aws_iam_policy_document.label_00_mfa.json,
+    data.aws_iam_policy_document.label_04_app_base.json,
+    data.aws_iam_policy_document.label_06_db_ro.json,
+    data.aws_iam_policy_document.label_08_sec_ro.json
+  ]
+}
+
+# ---------------------------------------------------------
+# 4-1. Frontend Engineer (최광혁)
+# 애플리케이션 로그, 에셋 조작 가능. DB 상태 확인 권한 제외.
+# ---------------------------------------------------------
+data "aws_iam_policy_document" "frontend_merged_policy" {
+  source_policy_documents = [
+    data.aws_iam_policy_document.label_00_mfa.json,
+    data.aws_iam_policy_document.label_04_app_base.json,
+    data.aws_iam_policy_document.label_08_sec_ro.json
   ]
 }
 
 data "aws_iam_policy_document" "dba_merged_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.label_00_common_mfa_enforcement.json,
-    data.aws_iam_policy_document.label_05_data_db_management.json,
-    data.aws_iam_policy_document.label_08_sec_secret_readonly.json
+    data.aws_iam_policy_document.label_00_mfa.json,
+    data.aws_iam_policy_document.label_05_db_admin.json,
+    data.aws_iam_policy_document.label_08_sec_ro.json
   ]
 }
 
 data "aws_iam_policy_document" "appsec_merged_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.label_00_common_mfa_enforcement.json,
-    data.aws_iam_policy_document.label_07_sec_secret_management.json,
-    data.aws_iam_policy_document.label_11_audit_system_readonly.json
+    data.aws_iam_policy_document.label_00_mfa.json,
+    data.aws_iam_policy_document.label_07_sec_admin.json
   ]
 }
 
-data "aws_iam_policy_document" "ml_engineer_merged_policy" {
+data "aws_iam_policy_document" "ai_researcher_merged_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.label_00_common_mfa_enforcement.json,
-    data.aws_iam_policy_document.label_04_dev_app_baseline.json,
-    data.aws_iam_policy_document.label_08_sec_secret_readonly.json,
-    data.aws_iam_policy_document.label_09_ai_model_training.json
+    data.aws_iam_policy_document.label_00_mfa.json,
+    data.aws_iam_policy_document.label_04_app_base.json,
+    data.aws_iam_policy_document.label_08_sec_ro.json,
+    data.aws_iam_policy_document.label_09_ai_train.json
   ]
 }
 
-data "aws_iam_policy_document" "ai_platform_merged_policy" {
+data "aws_iam_policy_document" "mlops_engineer_merged_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.label_00_common_mfa_enforcement.json,
-    data.aws_iam_policy_document.label_04_dev_app_baseline.json,
-    data.aws_iam_policy_document.label_06_data_db_readonly.json,
-    data.aws_iam_policy_document.label_08_sec_secret_readonly.json,
-    data.aws_iam_policy_document.label_10_ai_model_serving.json
+    data.aws_iam_policy_document.label_00_mfa.json,
+    data.aws_iam_policy_document.label_03_pipeline.json,
+    data.aws_iam_policy_document.label_06_db_ro.json,
+    data.aws_iam_policy_document.label_08_sec_ro.json,
+    data.aws_iam_policy_document.label_10_ai_serve.json
   ]
 }
 
 data "aws_iam_policy_document" "qa_observability_merged_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.label_00_common_mfa_enforcement.json,
-    data.aws_iam_policy_document.label_11_audit_system_readonly.json
+    data.aws_iam_policy_document.label_00_mfa.json,
+    data.aws_iam_policy_document.label_11_audit_ro.json
   ]
 }
 
 data "aws_iam_policy_document" "biz_analytics_merged_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.label_00_common_mfa_enforcement.json,
-    data.aws_iam_policy_document.label_12_biz_data_analytics.json
+    data.aws_iam_policy_document.label_00_mfa.json,
+    data.aws_iam_policy_document.label_12_biz_data.json
   ]
 }
 
 data "aws_iam_policy_document" "emergency_break_glass_policy" {
   source_policy_documents = [
-    data.aws_iam_policy_document.label_00_common_mfa_enforcement.json,
-    data.aws_iam_policy_document.label_99_emergency_break_glass_admin.json
+    data.aws_iam_policy_document.label_00_mfa.json,
+    data.aws_iam_policy_document.label_99_break_glass.json
   ]
 }
 
@@ -113,10 +128,16 @@ resource "aws_iam_policy" "devops" {
   policy      = data.aws_iam_policy_document.devops_merged_policy.json
 }
 
-resource "aws_iam_policy" "developer" {
-  name        = "${var.environment}-Developer-Policy"
-  description = "RBAC Policy for Backend and FE Engineers"
-  policy      = data.aws_iam_policy_document.developer_merged_policy.json
+resource "aws_iam_policy" "backend_developer" {
+  name        = "${var.environment}-Backend-Developer-Policy"
+  description = "RBAC Policy for Backend Engineers"
+  policy      = data.aws_iam_policy_document.backend_merged_policy.json
+}
+
+resource "aws_iam_policy" "frontend_developer" {
+  name        = "${var.environment}-Frontend-Developer-Policy"
+  description = "RBAC Policy for Frontend Engineers"
+  policy      = data.aws_iam_policy_document.frontend_merged_policy.json
 }
 
 resource "aws_iam_policy" "dba" {
@@ -131,21 +152,21 @@ resource "aws_iam_policy" "appsec" {
   policy      = data.aws_iam_policy_document.appsec_merged_policy.json
 }
 
-resource "aws_iam_policy" "ml_engineer" {
-  name        = "${var.environment}-MLEngineer-Policy"
-  description = "RBAC Policy for ML Engineers"
-  policy      = data.aws_iam_policy_document.ml_engineer_merged_policy.json
+resource "aws_iam_policy" "ai_researcher" {
+  name        = "${var.environment}-AI-Researcher-Policy"
+  description = "RBAC Policy for AI Researchers"
+  policy      = data.aws_iam_policy_document.ai_researcher_merged_policy.json
 }
 
-resource "aws_iam_policy" "ai_platform" {
-  name        = "${var.environment}-AIPlatform-Policy"
-  description = "RBAC Policy for AI Platform Engineers"
-  policy      = data.aws_iam_policy_document.ai_platform_merged_policy.json
+resource "aws_iam_policy" "mlops_engineer" {
+  name        = "${var.environment}-MLOps-Engineer-Policy"
+  description = "RBAC Policy for MLOps Engineers"
+  policy      = data.aws_iam_policy_document.mlops_engineer_merged_policy.json
 }
 
 resource "aws_iam_policy" "qa_observability" {
   name        = "${var.environment}-QA-Observability-Policy"
-  description = "RBAC Policy for QA and Observability"
+  description = "RBAC Policy for Service QA, Observability, and Security Analysts"
   policy      = data.aws_iam_policy_document.qa_observability_merged_policy.json
 }
 
